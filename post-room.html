@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Room - Rent Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="post-room">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Rent Home</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="listings.html">Rooms</a>
+        <a href="post-room.html">Post Room</a>
+        <a href="auth.html" id="authLink">Login / Signup</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container narrow">
+      <div class="section-head compact">
+        <div>
+          <span class="eyebrow">Share your space</span>
+          <h1>Post a room</h1>
+        </div>
+      </div>
+
+      <form class="card form-grid" id="postRoomForm">
+        <label>Room Title
+          <input type="text" id="roomTitle" placeholder="Room in Delhi" required>
+        </label>
+        <label>Price (per month)
+          <input type="number" id="roomPrice" placeholder="5000" required>
+        </label>
+        <label>Location
+          <input type="text" id="roomLocation" placeholder="Delhi" required>
+        </label>
+        <label>Contact Number
+          <input type="tel" id="roomContact" placeholder="9876543210" required>
+        </label>
+        <label class="full-span">Description
+          <textarea id="roomDescription" rows="5" placeholder="Nice room with fresh air and nearby transport." required></textarea>
+        </label>
+        <label class="full-span">Image Upload
+          <input type="file" id="roomImage" accept="image/*">
+        </label>
+        <button type="submit" class="btn btn-primary full-width full-span">Submit Room</button>
+        <p class="status-message full-span" id="postRoomMessage"></p>
+      </form>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

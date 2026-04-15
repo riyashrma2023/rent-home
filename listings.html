@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Listings - Rent Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="listings">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Rent Home</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="listings.html">Rooms</a>
+        <a href="post-room.html">Post Room</a>
+        <a href="auth.html" id="authLink">Login / Signup</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section-head listings-head">
+        <div>
+          <span class="eyebrow">Browse rooms</span>
+          <h1>All room listings</h1>
+        </div>
+        <form class="search-panel compact-search" id="listingSearchForm">
+          <label class="sr-only" for="listingSearchInput">Search rooms by location</label>
+          <input type="text" id="listingSearchInput" placeholder="Search by location">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+      <div class="room-grid" id="listingRoomGrid"></div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

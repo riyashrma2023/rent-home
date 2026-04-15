@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Rent Home</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="listings.html">Rooms</a>
+        <a href="post-room.html">Post Room</a>
+        <a href="auth.html" id="authLink">Login / Signup</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Simple room rental app</span>
+          <h1>Find the right room in the right city.</h1>
+          <p>Search rooms, post your space, and contact owners directly in one clean and beginner-friendly app.</p>
+          <form class="search-panel" id="homeSearchForm">
+            <label class="sr-only" for="homeSearchInput">Search by location</label>
+            <input type="text" id="homeSearchInput" placeholder="Search by location, e.g. Delhi">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="post-room.html">Post Room</a>
+            <a class="btn btn-secondary" href="listings.html">Browse Rooms</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <p>Featured Stay</p>
+            <span>New</span>
+          </div>
+          <img id="featuredRoomImage" src="" alt="Featured room">
+          <div class="hero-card-body">
+            <h2 id="featuredRoomTitle">Modern Room</h2>
+            <p id="featuredRoomMeta">Affordable and comfortable</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container section-head">
+        <div>
+          <span class="eyebrow">Popular listings</span>
+          <h2>Rooms you can explore today</h2>
+        </div>
+        <a class="text-link" href="listings.html">View all rooms</a>
+      </div>
+      <div class="container room-grid" id="homeRoomGrid"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

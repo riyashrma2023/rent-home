@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup - Rent Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="auth">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Rent Home</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="listings.html">Rooms</a>
+        <a href="post-room.html">Post Room</a>
+        <a href="auth.html" id="authLink">Login / Signup</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container auth-layout">
+      <section class="info-card">
+        <span class="eyebrow">Welcome</span>
+        <h1>Join Rent Home</h1>
+        <p>Create an account to save your basic details in this demo app and start posting rooms quickly.</p>
+        <ul class="feature-list">
+          <li>Simple signup and login</li>
+          <li>No backend required</li>
+          <li>Fast localStorage-based demo</li>
+        </ul>
+      </section>
+
+      <section class="card auth-card">
+        <div class="tab-row">
+          <button class="tab-btn active" data-tab-target="loginForm">Login</button>
+          <button class="tab-btn" data-tab-target="signupForm">Signup</button>
+        </div>
+
+        <form id="loginForm" class="form-panel active">
+          <h2>Login</h2>
+          <label>Email
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+          </label>
+          <label>Password
+            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+          </label>
+          <button type="submit" class="btn btn-primary full-width">Login</button>
+        </form>
+
+        <form id="signupForm" class="form-panel">
+          <h2>Signup</h2>
+          <label>Name
+            <input type="text" id="signupName" placeholder="Enter your name" required>
+          </label>
+          <label>Email
+            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+          </label>
+          <label>Password
+            <input type="password" id="signupPassword" placeholder="Create a password" required>
+          </label>
+          <button type="submit" class="btn btn-primary full-width">Create Account</button>
+        </form>
+
+        <p class="status-message" id="authMessage"></p>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
