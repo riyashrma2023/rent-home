@@ -21,32 +21,13 @@
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Simple room rental app</span>
-          <h1>Find the right room in the right city.</h1>
-          <p>Search rooms, post your space, and contact owners directly in one clean and beginner-friendly app.</p>
-          <form class="search-panel" id="homeSearchForm">
-            <label class="sr-only" for="homeSearchInput">Search by location</label>
-            <input type="text" id="homeSearchInput" placeholder="Search by location, e.g. Delhi">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="post-room.html">Post Room</a>
-            <a class="btn btn-secondary" href="listings.html">Browse Rooms</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <div class="hero-card-top">
-            <p>Featured Stay</p>
-            <span>New</span>
-          </div>
-          <img id="featuredRoomImage" src="" alt="Featured room">
-          <div class="hero-card-body">
-            <h2 id="featuredRoomTitle">Modern Room</h2>
-            <p id="featuredRoomMeta">Affordable and comfortable</p>
-          </div>
-        </div>
+      <div class="container hero-simple">
+        <h1>Find your room</h1>
+        <form class="search-panel hero-search" id="homeSearchForm">
+          <label class="sr-only" for="homeSearchInput">Search by location</label>
+          <input type="text" id="homeSearchInput" placeholder="Search by location">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
       </div>
     </section>
 

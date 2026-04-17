@@ -108,13 +108,6 @@ function initHomePage() {
   const homeRoomGrid = document.getElementById("homeRoomGrid");
   renderRooms(homeRoomGrid, rooms.slice(0, 3));
 
-  const featured = rooms[0];
-  if (featured) {
-    document.getElementById("featuredRoomImage").src = featured.image || DEFAULT_IMAGE;
-    document.getElementById("featuredRoomTitle").textContent = featured.title;
-    document.getElementById("featuredRoomMeta").textContent = `${featured.location} - Rs ${featured.price}/month`;
-  }
-
   const homeSearchForm = document.getElementById("homeSearchForm");
   homeSearchForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -256,9 +249,8 @@ function initRoomDetailPage() {
     return;
   }
 
-  const favorites = getFavorites();
-  const isFavorite = favorites.includes(room.id);
   const whatsappLink = `https://wa.me/${room.contact}?text=${encodeURIComponent(`Hi, I am interested in ${room.title} on Rent Home.`)}`;
+  const weeklyPrice = getWeeklyPrice(room.price);
 
   roomDetailContainer.innerHTML = `
     <div class="detail-shell">
@@ -267,25 +259,20 @@ function initRoomDetailPage() {
         <span class="eyebrow">Room details</span>
         <h1>${escapeHtml(room.title)}</h1>
         <div class="detail-meta">
-          <span class="meta-pill">Rs ${room.price}/month</span>
+          <span class="meta-pill">&#8377;${room.price}/day</span>
+          <span class="meta-pill">&#8377;${weeklyPrice}/week</span>
           <span class="meta-pill">${escapeHtml(room.location)}</span>
-          <span class="rating-pill">&starf; ${room.rating || 4.5}</span>
+          <span class="meta-pill">Rating ${room.rating || 4.5}</span>
         </div>
         <p class="room-description">${escapeHtml(room.description)}</p>
-        <p class="room-meta"><strong>Contact:</strong> ${escapeHtml(room.contact)}</p>
+        <p class="detail-note">Contact: ${escapeHtml(room.contact)}</p>
         <div class="detail-actions">
           <a class="btn btn-primary" href="tel:${room.contact}">Call Owner</a>
           <a class="btn btn-secondary" href="${whatsappLink}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <button class="icon-btn ${isFavorite ? "active" : ""}" id="detailFavoriteBtn" type="button" aria-label="Favorite room">&#10084;</button>
         </div>
       </div>
     </div>
   `;
-
-  document.getElementById("detailFavoriteBtn").addEventListener("click", () => {
-    toggleFavorite(room.id);
-    initRoomDetailPage();
-  });
 }
 
 function renderRooms(container, rooms, query = "") {
@@ -299,37 +286,30 @@ function renderRooms(container, rooms, query = "") {
     return;
   }
 
-  const favorites = getFavorites();
   container.innerHTML = rooms
     .map((room) => {
-      const isFavorite = favorites.includes(room.id);
+      const weeklyPrice = getWeeklyPrice(room.price);
       return `
         <article class="room-card">
           <img src="${room.image || DEFAULT_IMAGE}" alt="${escapeHtml(room.title)}">
           <div class="room-card-body">
-            <h3>${escapeHtml(room.title)}</h3>
-            <p class="room-meta">${escapeHtml(room.location)}</p>
-            <div class="price-row">
-              <span class="price">Rs ${room.price}</span>
-              <span class="rating-pill">&starf; ${room.rating || 4.5}</span>
+            <div class="room-card-top">
+              <h3>${escapeHtml(room.title)}</h3>
+              <div class="price-stack">
+                <span class="price-main">&#8377;${room.price}/day</span>
+                <span class="price-sub">&#8377;${weeklyPrice}/week</span>
+              </div>
             </div>
+            <p class="room-meta room-location">${escapeHtml(room.location)}</p>
             <div class="room-card-actions">
-              <a class="btn btn-primary full-width" href="room.html?id=${room.id}">View Details</a>
-              <button class="icon-btn ${isFavorite ? "active" : ""}" type="button" data-favorite-id="${room.id}" aria-label="Favorite room">&#10084;</button>
+              <a class="btn btn-secondary full-width" href="room.html?id=${room.id}">View</a>
+              <a class="btn btn-primary full-width" href="tel:${room.contact}">Contact</a>
             </div>
           </div>
         </article>
       `;
     })
     .join("");
-
-  container.querySelectorAll("[data-favorite-id]").forEach((button) => {
-    button.addEventListener("click", () => {
-      toggleFavorite(button.dataset.favoriteId);
-      const currentRooms = container.id === "homeRoomGrid" ? getRooms().slice(0, 3) : filterCurrentListingRooms();
-      renderRooms(container, currentRooms, query);
-    });
-  });
 }
 
 function filterCurrentListingRooms() {
@@ -350,6 +330,10 @@ function toggleFavorite(roomId) {
   }
 
   saveFavorites(favorites);
+}
+
+function getWeeklyPrice(pricePerDay) {
+  return Number(pricePerDay) * 7;
 }
 
 function setStatus(element, message, type = "") {
