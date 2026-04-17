@@ -108,6 +108,14 @@ function initHomePage() {
   const homeRoomGrid = document.getElementById("homeRoomGrid");
   renderRooms(homeRoomGrid, rooms.slice(0, 3));
 
+  const featured = rooms[0];
+  if (featured) {
+    document.getElementById("featuredRoomImage").src = featured.image || DEFAULT_IMAGE;
+    document.getElementById("featuredRoomTitle").textContent = featured.title;
+    document.getElementById("featuredRoomMeta").textContent = `${featured.location} - \u20b9${featured.price}/day`;
+    document.getElementById("featuredRoomLink").href = `room.html?id=${featured.id}`;
+  }
+
   const homeSearchForm = document.getElementById("homeSearchForm");
   homeSearchForm.addEventListener("submit", (event) => {
     event.preventDefault();

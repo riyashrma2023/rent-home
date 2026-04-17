@@ -21,13 +21,30 @@
 
   <main>
     <section class="hero">
-      <div class="container hero-simple">
-        <h1>Find your room</h1>
-        <form class="search-panel hero-search" id="homeSearchForm">
-          <label class="sr-only" for="homeSearchInput">Search by location</label>
-          <input type="text" id="homeSearchInput" placeholder="Search by location">
-          <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+      <div class="container hero-layout">
+        <div class="hero-copy glass-panel">
+          <span class="eyebrow">Rent Home</span>
+          <h1>Find your room</h1>
+          <p class="hero-text">Search simple and comfortable rooms in your preferred location.</p>
+          <form class="search-panel hero-search" id="homeSearchForm">
+            <label class="sr-only" for="homeSearchInput">Search by location</label>
+            <input type="text" id="homeSearchInput" placeholder="Search by location">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+        </div>
+
+        <article class="hero-card glass-panel">
+          <div class="hero-card-top">
+            <span class="eyebrow">Featured room</span>
+            <span class="status-pill">Popular</span>
+          </div>
+          <img id="featuredRoomImage" src="" alt="Featured room">
+          <div class="hero-card-body">
+            <h2 id="featuredRoomTitle">Modern Room</h2>
+            <p id="featuredRoomMeta">Comfortable and affordable stay</p>
+            <a class="btn btn-secondary" id="featuredRoomLink" href="listings.html">View Room</a>
+          </div>
+        </article>
       </div>
     </section>
 
