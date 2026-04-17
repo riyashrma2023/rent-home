@@ -1,16 +1,22 @@
 :root {
-  --bg: #f5f7f6;
-  --surface: #ffffff;
-  --surface-soft: #f9fbfa;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --primary: #1f7a5a;
-  --primary-soft: #e8f5ef;
-  --border: #e5e7eb;
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-  --radius-lg: 20px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
+  --bg-top: #eefaf3;
+  --bg-mid: #edf7ff;
+  --bg-bottom: #f8fbff;
+  --surface: rgba(255, 255, 255, 0.42);
+  --surface-strong: rgba(255, 255, 255, 0.58);
+  --surface-soft: rgba(255, 255, 255, 0.26);
+  --text: #183026;
+  --muted: #587063;
+  --primary: #267b63;
+  --primary-dark: #1d6350;
+  --primary-soft: rgba(38, 123, 99, 0.12);
+  --border: rgba(255, 255, 255, 0.5);
+  --shadow: 0 18px 45px rgba(38, 78, 66, 0.10);
+  --shadow-hover: 0 22px 55px rgba(38, 78, 66, 0.16);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
 }
 
 * {
@@ -19,11 +25,27 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   font-size: 15px;
   line-height: 1.5;
   color: var(--text);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(173, 237, 201, 0.7), transparent 26%),
+    radial-gradient(circle at top right, rgba(185, 225, 255, 0.7), transparent 24%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.42), transparent 20%),
+    radial-gradient(circle at 80% 28%, rgba(255, 255, 255, 0.32), transparent 18%),
+    radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.22), transparent 22%);
 }
 
 img {
@@ -55,10 +77,8 @@ textarea {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(10px);
+  z-index: 20;
+  padding-top: 10px;
 }
 
 .nav-wrap {
@@ -66,12 +86,20 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
+  margin-top: 8px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .brand {
   font-size: 1.2rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .nav-links {
@@ -82,8 +110,8 @@ textarea {
 }
 
 .nav-links a {
-  font-size: 0.95rem;
   color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .nav-links a:hover {
@@ -92,20 +120,31 @@ textarea {
 
 .hero,
 .section {
-  padding: 32px 0 56px;
+  position: relative;
+  z-index: 1;
+  padding: 34px 0 56px;
+}
+
+.hero-simple,
+.card,
+.room-card,
+.detail-shell,
+.empty-state,
+.info-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .hero-simple {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 18px;
-  padding: 44px 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  gap: 16px;
+  padding: 52px 22px;
   text-align: center;
 }
 
@@ -114,7 +153,7 @@ textarea {
 .section-head h2,
 .info-card h1 {
   margin: 0;
-  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-size: clamp(1.7rem, 3vw, 2.1rem);
   font-weight: 600;
   line-height: 1.2;
 }
@@ -124,7 +163,7 @@ textarea {
   margin-bottom: 6px;
   color: var(--primary);
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -144,18 +183,26 @@ textarea {
 input,
 textarea {
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: var(--radius-md);
   padding: 12px 14px;
-  background: var(--surface);
   color: var(--text);
+  background: var(--surface-strong);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
   outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #789184;
 }
 
 input:focus,
 textarea:focus {
-  border-color: #b6d7ca;
-  box-shadow: 0 0 0 3px rgba(31, 122, 90, 0.08);
+  border-color: rgba(38, 123, 99, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 4px rgba(38, 123, 99, 0.10);
 }
 
 textarea {
@@ -173,41 +220,36 @@ textarea {
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn-primary {
-  background: var(--primary);
   color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, #3e9f86 100%);
+  box-shadow: 0 10px 24px rgba(38, 123, 99, 0.22);
 }
 
 .btn-primary:hover {
-  background: #17674b;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #31856e 100%);
 }
 
 .btn-secondary {
-  background: var(--surface);
   color: var(--primary);
-  border-color: #cfe3da;
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .btn-secondary:hover {
-  background: var(--primary-soft);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 10px 24px rgba(24, 48, 38, 0.08);
 }
 
 .full-width {
   width: 100%;
-}
-
-.card,
-.room-card,
-.detail-shell,
-.empty-state,
-.info-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
 }
 
 .section-head {
@@ -231,21 +273,27 @@ textarea {
 .room-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .room-card {
   overflow: hidden;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-hover);
 }
 
 .room-card img,
 .detail-image {
-  height: 170px;
+  height: 180px;
   object-fit: cover;
 }
 
 .room-card-body {
-  padding: 14px;
+  padding: 15px;
 }
 
 .room-card-top {
@@ -267,29 +315,32 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: 5px;
   white-space: nowrap;
 }
 
 .price-main,
-.price-sub {
+.price-sub,
+.meta-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 4px 10px;
+  padding: 5px 10px;
   font-size: 0.8rem;
   font-weight: 600;
 }
 
 .price-main {
-  background: var(--primary-soft);
-  color: var(--primary);
+  background: rgba(38, 123, 99, 0.16);
+  color: var(--primary-dark);
 }
 
-.price-sub {
-  background: var(--surface-soft);
+.price-sub,
+.meta-pill {
+  background: rgba(255, 255, 255, 0.46);
   color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .room-meta,
@@ -337,18 +388,20 @@ textarea {
 .tab-btn {
   flex: 1;
   min-height: 40px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 999px;
-  background: var(--surface-soft);
+  background: rgba(255, 255, 255, 0.35);
   color: var(--muted);
   font-weight: 600;
   cursor: pointer;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .tab-btn.active {
-  background: var(--primary-soft);
-  border-color: #cfe3da;
   color: var(--primary);
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: inset 0 0 0 1px rgba(38, 123, 99, 0.10);
 }
 
 .form-panel {
@@ -395,11 +448,11 @@ label textarea {
 }
 
 .status-message.success {
-  color: var(--primary);
+  color: var(--primary-dark);
 }
 
 .status-message.error {
-  color: #c2410c;
+  color: #b45309;
 }
 
 .compact-search {
@@ -427,15 +480,6 @@ label textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.meta-pill {
-  border-radius: 999px;
-  padding: 6px 12px;
-  background: var(--surface-soft);
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 600;
 }
 
 .empty-state {
@@ -483,19 +527,20 @@ label textarea {
   .nav-wrap {
     flex-direction: column;
     align-items: flex-start;
+    border-radius: 24px;
   }
 
   .hero,
   .section {
-    padding: 22px 0 40px;
+    padding: 24px 0 40px;
   }
 
   .hero-simple {
-    padding: 32px 16px;
+    padding: 34px 16px;
   }
 
   .room-card img,
   .detail-image {
-    height: 160px;
+    height: 165px;
   }
 }
