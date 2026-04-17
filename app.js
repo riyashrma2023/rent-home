@@ -301,12 +301,10 @@ function renderRooms(container, rooms, query = "") {
         <article class="room-card">
           <img src="${room.image || DEFAULT_IMAGE}" alt="${escapeHtml(room.title)}">
           <div class="room-card-body">
-            <div class="room-card-top">
-              <h3>${escapeHtml(room.title)}</h3>
-              <div class="price-stack">
-                <span class="price-main">&#8377;${room.price}/day</span>
-                <span class="price-sub">&#8377;${weeklyPrice}/week</span>
-              </div>
+            <h3>${escapeHtml(room.title)}</h3>
+            <div class="price-stack">
+              <span class="price-main">&#8377;${weeklyPrice}/week</span>
+              <span class="price-sub">&#8377;${room.price}/day</span>
             </div>
             <p class="room-meta room-location">${escapeHtml(room.location)}</p>
             <div class="room-card-actions">
