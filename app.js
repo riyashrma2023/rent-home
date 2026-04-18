@@ -5,8 +5,20 @@ const STORAGE_KEYS = {
   favorites: "rentHomeFavorites"
 };
 
-const DEFAULT_IMAGE =
-  "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80";
+const ROOM_IMAGES = [
+  "https://source.unsplash.com/400x300/?simple-room",
+  "https://source.unsplash.com/400x300/?small-bedroom",
+  "https://source.unsplash.com/400x300/?budget-room",
+  "https://source.unsplash.com/400x300/?indian-room",
+  "https://source.unsplash.com/400x300/?basic-bedroom",
+  "https://source.unsplash.com/400x300/?cheap-room",
+  "https://source.unsplash.com/400x300/?pg-room",
+  "https://source.unsplash.com/400x300/?village-room",
+  "https://source.unsplash.com/400x300/?small-house-room",
+  "https://source.unsplash.com/400x300/?simple-interior-room"
+];
+
+const DEFAULT_IMAGE = ROOM_IMAGES[0];
 
 const sampleRooms = [
   {
@@ -16,7 +28,7 @@ const sampleRooms = [
     dailyPrice: 220,
     location: "Delhi",
     description: "Simple and clean room for short stays with nearby market access and basic comfort.",
-    image: DEFAULT_IMAGE,
+    image: ROOM_IMAGES[0],
     contact: "9876543210",
     rating: 4.6
   },
@@ -27,7 +39,7 @@ const sampleRooms = [
     dailyPrice: 300,
     location: "Mumbai",
     description: "Affordable local room near transport with clean bedding and a simple private space.",
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80",
+    image: ROOM_IMAGES[1],
     contact: "9123456780",
     rating: 4.4
   },
@@ -38,7 +50,7 @@ const sampleRooms = [
     dailyPrice: 200,
     location: "Jaipur",
     description: "Very affordable room for short local stays with ventilation and a peaceful area.",
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+    image: ROOM_IMAGES[2],
     contact: "9988776655",
     rating: 4.8
   }
@@ -386,6 +398,7 @@ function normalizeRoom(room) {
 
   return {
     ...room,
+    image: room.image || DEFAULT_IMAGE,
     dailyPrice,
     weeklyPrice
   };
