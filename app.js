@@ -11,33 +11,33 @@ const DEFAULT_IMAGE =
 const sampleRooms = [
   {
     id: "room-1",
-    title: "Room in Delhi",
-    weekPrice: 3000,
-    dayPrice: 500,
+    title: "Budget Room in Delhi",
+    weeklyPrice: 1400,
+    dailyPrice: 220,
     location: "Delhi",
-    description: "Nice room with natural light, nearby metro access, and a peaceful neighborhood.",
+    description: "Simple and clean room for short stays with nearby market access and basic comfort.",
     image: DEFAULT_IMAGE,
     contact: "9876543210",
     rating: 4.6
   },
   {
     id: "room-2",
-    title: "Cozy Space in Mumbai",
-    weekPrice: 4200,
-    dayPrice: 700,
+    title: "Cheap Stay in Mumbai",
+    weeklyPrice: 1800,
+    dailyPrice: 300,
     location: "Mumbai",
-    description: "Comfortable room close to shops and transport with a bright and clean setup.",
+    description: "Affordable local room near transport with clean bedding and a simple private space.",
     image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80",
     contact: "9123456780",
     rating: 4.4
   },
   {
     id: "room-3",
-    title: "Affordable Room in Jaipur",
-    weekPrice: 2800,
-    dayPrice: 450,
+    title: "Low Cost Room in Jaipur",
+    weeklyPrice: 1200,
+    dailyPrice: 200,
     location: "Jaipur",
-    description: "Budget-friendly room with ventilation, a study corner, and easy market access.",
+    description: "Very affordable room for short local stays with ventilation and a peaceful area.",
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
     contact: "9988776655",
     rating: 4.8
@@ -111,7 +111,7 @@ function updateAuthNav() {
 }
 
 function initHomePage() {
-  const rooms = getRooms();
+  const rooms = getRooms().sort((a, b) => a.dailyPrice - b.dailyPrice);
   const homeRoomGrid = document.getElementById("homeRoomGrid");
   renderRooms(homeRoomGrid, rooms.slice(0, 3));
 
@@ -119,7 +119,7 @@ function initHomePage() {
   if (featured) {
     document.getElementById("featuredRoomImage").src = featured.image || DEFAULT_IMAGE;
     document.getElementById("featuredRoomTitle").textContent = featured.title;
-    document.getElementById("featuredRoomMeta").textContent = `${featured.location} - \u20b9${featured.weekPrice}/week`;
+    document.getElementById("featuredRoomMeta").textContent = `${featured.location} - \u20b9${featured.dailyPrice}/day`;
     document.getElementById("featuredRoomLink").href = `room.html?id=${featured.id}`;
   }
 
@@ -195,8 +195,8 @@ function initPostRoomPage() {
     event.preventDefault();
 
     const title = document.getElementById("roomTitle").value.trim();
-    const weekPrice = Number(document.getElementById("roomWeekPrice").value);
-    const dayPrice = Number(document.getElementById("roomDayPrice").value);
+    const dailyPrice = Number(document.getElementById("roomDailyPrice").value);
+    const weeklyPrice = Number(document.getElementById("roomWeeklyPrice").value);
     const location = document.getElementById("roomLocation").value.trim();
     const description = document.getElementById("roomDescription").value.trim();
     const contact = document.getElementById("roomContact").value.trim();
@@ -207,8 +207,8 @@ function initPostRoomPage() {
     const newRoom = {
       id: `room-${Date.now()}`,
       title,
-      weekPrice,
-      dayPrice,
+      dailyPrice,
+      weeklyPrice,
       location,
       description,
       image,
@@ -234,9 +234,9 @@ function initListingsPage() {
 
   const refreshListings = () => {
     const query = searchInput.value.trim().toLowerCase();
-    const filteredRooms = getRooms().filter((room) =>
-      room.location.toLowerCase().includes(query)
-    );
+    const filteredRooms = getRooms()
+      .filter((room) => room.location.toLowerCase().includes(query))
+      .sort((a, b) => a.dailyPrice - b.dailyPrice);
     renderRooms(listingRoomGrid, filteredRooms, query);
   };
 
@@ -274,8 +274,8 @@ function initRoomDetailPage() {
         <span class="eyebrow">Room details</span>
         <h1>${escapeHtml(room.title)}</h1>
         <div class="detail-meta">
-          <span class="meta-pill">&#8377;${room.weekPrice}/week</span>
-          <span class="meta-pill">&#8377;${room.dayPrice}/day</span>
+          <span class="meta-pill">&#8377;${room.dailyPrice}/day</span>
+          <span class="meta-pill">&#8377;${room.weeklyPrice}/week</span>
           <span class="meta-pill">${escapeHtml(room.location)}</span>
           <span class="meta-pill">Rating ${room.rating || 4.5}</span>
         </div>
@@ -309,8 +309,8 @@ function renderRooms(container, rooms, query = "") {
           <div class="room-card-body">
             <h3>${escapeHtml(room.title)}</h3>
             <div class="price-stack">
-              <span class="price-main">&#8377;${room.weekPrice}/week</span>
-              <span class="price-sub">&#8377;${room.dayPrice}/day</span>
+              <span class="price-main">&#8377;${room.dailyPrice}/day</span>
+              <span class="price-sub">&#8377;${room.weeklyPrice}/week</span>
             </div>
             <p class="room-meta room-location">${escapeHtml(room.location)}</p>
             <div class="room-card-actions">
@@ -373,18 +373,20 @@ function escapeHtml(value) {
 }
 
 function normalizeRoom(room) {
-  const dayPrice =
+  const dailyPrice =
+    Number(room.dailyPrice) ||
     Number(room.dayPrice) ||
     Number(room.price) ||
     0;
 
-  const weekPrice =
+  const weeklyPrice =
+    Number(room.weeklyPrice) ||
     Number(room.weekPrice) ||
-    (dayPrice ? dayPrice * 7 : 0);
+    (dailyPrice ? dailyPrice * 7 : 0);
 
   return {
     ...room,
-    weekPrice,
-    dayPrice
+    dailyPrice,
+    weeklyPrice
   };
 }
