@@ -5,18 +5,22 @@ const STORAGE_KEYS = {
   favorites: "rentHomeFavorites"
 };
 
-const ROOM_IMAGES = [
-  "https://source.unsplash.com/400x300/?simple-room",
-  "https://source.unsplash.com/400x300/?small-bedroom",
-  "https://source.unsplash.com/400x300/?budget-room",
-  "https://source.unsplash.com/400x300/?indian-room",
-  "https://source.unsplash.com/400x300/?basic-bedroom",
-  "https://source.unsplash.com/400x300/?cheap-room",
-  "https://source.unsplash.com/400x300/?pg-room",
-  "https://source.unsplash.com/400x300/?village-room",
-  "https://source.unsplash.com/400x300/?small-house-room",
-  "https://source.unsplash.com/400x300/?simple-interior-room"
+const ROOM_IMAGE_FILES = [
+  "Indian village house.jpg",
+  "Indian interior.jpg",
+  "Interior of a house in Corgao, North Goa district.jpg",
+  "Tamil home.JPG",
+  "The village life.jpg",
+  "Indoor Panorama of An Old Homestead.jpg",
+  "A house in a village, India (2022).jpg",
+  "Aangan in village crafts museum.jpg",
+  "Chambre \u00e0 louer (Cameroun).jpg",
+  "This room has a twin bed and night stand as well as a small desk. There a door leading outside to the back of the house. (473206d2-d5ed-4cf3-bb86-096a622ac166).jpg"
 ];
+
+const ROOM_IMAGES = ROOM_IMAGE_FILES.map(
+  (fileName) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}?width=800`
+);
 
 const DEFAULT_IMAGE = ROOM_IMAGES[0];
 

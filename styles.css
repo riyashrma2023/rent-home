@@ -61,6 +61,7 @@ a {
 
 button,
 input,
+select,
 textarea {
   font: inherit;
 }
@@ -196,6 +197,7 @@ textarea {
 }
 
 input,
+select,
 textarea {
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.64);
@@ -213,6 +215,7 @@ textarea::placeholder {
 }
 
 input:focus,
+select:focus,
 textarea:focus {
   border-color: rgba(37, 119, 96, 0.28);
   box-shadow:
@@ -481,6 +484,7 @@ label {
 }
 
 label input,
+label select,
 label textarea {
   margin-top: 8px;
   font-weight: 400;
