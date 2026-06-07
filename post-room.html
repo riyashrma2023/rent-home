@@ -47,8 +47,19 @@
         <label class="full-span">Description
           <textarea id="roomDescription" rows="5" placeholder="Nice room with fresh air and nearby transport." required></textarea>
         </label>
-        <label class="full-span">Image Upload
-          <input type="file" id="roomImage" accept="image/*">
+        <label class="full-span">Room Image
+          <select id="roomImageSelect" required>
+            <option value="0">Simple Room</option>
+            <option value="1">Small Bedroom</option>
+            <option value="2">Budget Room</option>
+            <option value="3">Indian Room</option>
+            <option value="4">Basic Bedroom</option>
+            <option value="5">Cheap Room</option>
+            <option value="6">PG Room</option>
+            <option value="7">Village Room</option>
+            <option value="8">Small House Room</option>
+            <option value="9">Simple Interior Room</option>
+          </select>
         </label>
         <button type="submit" class="btn btn-primary full-width full-span">Submit Room</button>
         <p class="status-message full-span" id="postRoomMessage"></p>

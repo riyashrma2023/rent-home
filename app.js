@@ -203,7 +203,7 @@ function initPostRoomPage() {
   const postRoomForm = document.getElementById("postRoomForm");
   const messageBox = document.getElementById("postRoomMessage");
 
-  postRoomForm.addEventListener("submit", async (event) => {
+  postRoomForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const title = document.getElementById("roomTitle").value.trim();
@@ -212,9 +212,8 @@ function initPostRoomPage() {
     const location = document.getElementById("roomLocation").value.trim();
     const description = document.getElementById("roomDescription").value.trim();
     const contact = document.getElementById("roomContact").value.trim();
-    const imageFile = document.getElementById("roomImage").files[0];
-
-    const image = imageFile ? await fileToDataUrl(imageFile) : DEFAULT_IMAGE;
+    const imageIndex = Number(document.getElementById("roomImageSelect").value);
+    const image = getApprovedRoomImage(imageIndex);
 
     const newRoom = {
       id: `room-${Date.now()}`,
@@ -362,15 +361,6 @@ function setStatus(element, message, type = "") {
   if (type) element.classList.add(type);
 }
 
-function fileToDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error("Image upload failed."));
-    reader.readAsDataURL(file);
-  });
-}
-
 function generateRating() {
   return (4 + Math.random()).toFixed(1);
 }
@@ -385,6 +375,10 @@ function escapeHtml(value) {
 }
 
 function normalizeRoom(room) {
+  const approvedImage = getApprovedRoomImage(
+    ROOM_IMAGES.indexOf(room.image)
+  );
+
   const dailyPrice =
     Number(room.dailyPrice) ||
     Number(room.dayPrice) ||
@@ -398,8 +392,16 @@ function normalizeRoom(room) {
 
   return {
     ...room,
-    image: room.image || DEFAULT_IMAGE,
+    image: approvedImage,
     dailyPrice,
     weeklyPrice
   };
+}
+
+function getApprovedRoomImage(index) {
+  if (Number.isInteger(index) && index >= 0 && index < ROOM_IMAGES.length) {
+    return ROOM_IMAGES[index];
+  }
+
+  return DEFAULT_IMAGE;
 }
